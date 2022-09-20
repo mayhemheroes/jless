@@ -1,0 +1,7 @@
+project: jless
+target: jsonparser
+
+cmds:
+  - cmd: /jsonparser
+  - cmd: /jsonparser_no_inst @@
+    libfuzzer: false
