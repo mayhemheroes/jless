@@ -17,7 +17,7 @@ jobs:
     runs-on: ${{ matrix.platform.os }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6.0.2
       - name: Install Rust
         uses: actions-rs/toolchain@v1
         with:
