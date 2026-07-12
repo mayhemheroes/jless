@@ -1,0 +1,38 @@
+# Additive library shim: upstream jless is a BINARY-only crate (src/main.rs, no
+# src/lib.rs), so nothing can `use jless::...` from a dependent crate. This crate
+# re-exposes the UNMODIFIED upstream modules (via #[path] includes of ../../src/*.rs)
+# as a `jless` library so the mayhem/fuzz harness can drive jless::jsonparser::parse
+# — the exact code path the original mayhemheroes harness fuzzed — without touching
+# any upstream file. Dependencies mirror upstream Cargo.toml.
+[package]
+name = "jless"
+version = "0.9.0"
+edition = "2018"
+publish = false
+
+[features]
+default = []
+sexp = []
+
+[dependencies]
+logos = "0.12.0"
+unicode-width = "0.1.5"
+unicode-segmentation = "1.7.1"
+rustyline = "9.0.0"
+regex = "1.5"
+lazy_static = "1.4.0"
+termion = "1.5.6"
+signal-hook = "0.3.8"
+libc = "0.2"
+clap = { version = "4.0", features = ["derive"] }
+isatty = "0.1"
+libc-stdhandle = "0.1.0"
+yaml-rust = "0.4"
+clipboard = "0.5"
+
+[dev-dependencies]
+indoc = "1.0"
+
+# Keep this shim out of any enclosing workspace.
+[workspace]
+members = ["."]
